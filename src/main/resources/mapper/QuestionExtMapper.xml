@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="life.majiang.community.mapper.QuestionExtMapper">
-    <resultMap id="BaseResultMap" type="life.majiang.community.model.Question">
+<mapper namespace="scu.cj.community.mapper.QuestionExtMapper">
+    <resultMap id="BaseResultMap" type="scu.cj.community.model.Question">
         <id column="ID" jdbcType="INTEGER" property="id"/>
         <result column="TITLE" jdbcType="VARCHAR" property="title"/>
         <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate"/>
@@ -13,21 +13,21 @@
         <result column="TAG" jdbcType="VARCHAR" property="tag"/>
     </resultMap>
 
-    <update id="incView" parameterType="life.majiang.community.model.Question">
+    <update id="incView" parameterType="scu.cj.community.model.Question">
     update QUESTION
     set
     VIEW_COUNT = VIEW_COUNT + #{viewCount,jdbcType=INTEGER}
     where id = #{id}
     </update>
 
-    <update id="incCommentCount" parameterType="life.majiang.community.model.Question">
+    <update id="incCommentCount" parameterType="scu.cj.community.model.Question">
     update QUESTION
     set
     COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
     where id = #{id}
     </update>
 
-    <select id="selectRelated" parameterType="life.majiang.community.model.Question" resultMap="BaseResultMap">
+    <select id="selectRelated" parameterType="scu.cj.community.model.Question" resultMap="BaseResultMap">
         select * from QUESTION
         <where>
             <if test="id != null">
@@ -40,7 +40,7 @@
         order by gmt_create desc limit 20
     </select>
 
-    <select id="countBySearch" parameterType="life.majiang.community.dto.QuestionQueryDTO"
+    <select id="countBySearch" parameterType="scu.cj.community.dto.QuestionQueryDTO"
             resultType="java.lang.Integer">
         select count(*) from QUESTION
         <where>
@@ -59,7 +59,7 @@
         </where>
     </select>
 
-    <select id="selectBySearch" parameterType="life.majiang.community.dto.QuestionQueryDTO"
+    <select id="selectBySearch" parameterType="scu.cj.community.dto.QuestionQueryDTO"
             resultMap="BaseResultMap">
         select * from QUESTION
         <where>
