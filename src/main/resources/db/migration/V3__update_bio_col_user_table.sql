@@ -1,0 +1,1 @@
+alter table user change bioint bio varchar(256) null;
