@@ -1,10 +1,12 @@
 package scu.cj.community.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import scu.cj.community.cache.TagCache;
 import scu.cj.community.dto.PaginationDTO;
 import scu.cj.community.model.Question;
 import scu.cj.community.model.QuestionRepresent;
@@ -119,4 +121,52 @@ public class BackstageController {
 
         return "redirect:/backstage";
     }
+
+    @GetMapping("/edit/{id}")
+    public  String toEdit(  @PathVariable(name = "id")Long id,
+                            Model model){
+
+        User user = userService.getUserById(id);
+        model.addAttribute("id",user.getId());
+        model.addAttribute("name",user.getName());
+        model.addAttribute("password",user.getPassword());
+        model.addAttribute("bio",user.getBio());
+
+        return  "/editUserInfor.html";
+    }
+
+    @PostMapping("/edit")
+    public String doEdit(
+            @RequestParam(value = "register-username", required = false) String name,
+            @RequestParam(value = "register-password", required = false) String password,
+            @RequestParam(value = "register-passwords", required = false) String passwords,
+            @RequestParam(value = "bio", required = false) String bio,
+            @RequestParam(value = "id", required = false) Long id,
+            HttpServletRequest request,
+            Model model) {
+
+        User user = userService.getUserById(id);
+        model.addAttribute("id",user.getId());
+        model.addAttribute("password",user.getPassword());
+        model.addAttribute("name",user.getName());
+        model.addAttribute("bio",user.getBio());
+
+        if (name.length()<2 || name.length()>10) {
+            model.addAttribute("error", "用户名不正确");
+            return "/editUserInfor.html";
+        }
+        if (password.length()<6 ||password.length()>10) {
+            model.addAttribute("error", "密码不正确");
+            return "/editUserInfor.html";
+        }
+        if (!password.equals(passwords)) {
+            model.addAttribute("error", "两次输入的密码不相同");
+            return "/editUserInfor.html";
+        }
+        userService.updateUserInfo(name,password,bio,id);
+
+        return "redirect:/backstage/manageUser";
+    }
+
+
 }

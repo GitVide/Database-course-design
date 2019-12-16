@@ -110,7 +110,7 @@
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/community?serverTimezone=UTC</url>
                     <user>root</user>
-                    <password>123456</password>
+                    <password>076523</password>
                 </configuration>
                 <dependencies>
                     <dependency>

@@ -51,7 +51,8 @@
                     <td th:if="${user.isSuper!='1'}" >
                         <span class="label label-success">普通用户</span>
                     </td>
-                            <td> <button class="btn btn-info">修改</button>
+            <!--                    th:href="@{/edit/}+${question.id}-->
+                    <td> <a class="btn btn-info"  th:href="@{/edit/}+${user.id}">修改</a>
                             </td>
                        </tr>
                   </tbody>

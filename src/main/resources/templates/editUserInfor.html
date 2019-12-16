@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>发布 - SCU校园论坛</title>
+    <head th:insert="~{import :: head}"></head>
+    <head th:insert="~{import :: markdown}"></head>
+<!--    <link rel="stylesheet" href="/css/bootstrap2.min.css">-->
+<!--    &lt;!&ndash;    <link rel="stylesheet" href="/css/main.css">&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="/css/style.default.css" id="theme-stylesheet">-->
+</head>
+<body>
+
+<div th:insert="~{navigation :: nav}"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>修改用户ID:[[${id}]]</h2>
+            <hr>
+
+            <form action="/edit" method="post">
+                <input type="hidden" name="id" th:value="${id}">
+                <div class="form-group">
+                    <label for="register-username">修改用户名:</label>
+                    <input type="text" class="form-control"  th:value="${name}" id="register-username" name="register-username"
+                           placeholder="修改用户名……"
+                           autocomplete="off">
+
+
+                </div>
+                <div class="form-group">
+                    <label for="register-password">修改密码:</label>
+                    <input  class="form-control"   type="password" th:value="${password}" id="register-password" name="register-password"
+                           placeholder="请输入新密码……"
+                           autocomplete="off">
+
+                </div>
+                <div class="form-group">
+                    <label for="register-passwords">再次确认密码:</label>
+                    <input  class="form-control"   type="password" th:value="${password}" id="register-passwords" name="register-passwords"
+                           placeholder="请再次输入新密码……"
+                           autocomplete="off">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="bio">修改个性签名:</label>
+                    <input type="text" class="form-control"  th:value="${bio}" id="bio" name="bio"
+                           placeholder="填入新的个性签名"
+                           autocomplete="off">
+                </div>
+
+
+
+                <div class="container-fluid main ">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                            <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                 th:text="${error}"
+                                 th:if="${error != null}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                            <button type="submit" class="btn btn-success btn-publish ">
+                                修改
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <h3>用户信息修改指南</h3>
+            • 用户名至少为2-10位<br>
+            •  密码须在6-10位之间<br>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: foot}"></div>
+
+</body>
+</html>

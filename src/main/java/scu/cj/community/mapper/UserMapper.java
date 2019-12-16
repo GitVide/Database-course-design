@@ -112,5 +112,7 @@ public interface UserMapper {
 
     List<User> findAllUser();
 
+    User getUserById(@Param("id") Long id);
+    int updateUserInfo(String name,String password,String bio,Long id);
 
 }
