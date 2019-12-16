@@ -173,3 +173,16 @@ body {
 .red {
     color: red !important;
 }
+
+.fullname{
+    font-size: 26px;
+    line-height: 30px;
+}
+.modify-profile{
+    height: 60px;
+    font-size: 20px;
+    width: 200px;
+    margin-left: 25%;
+    font-weight: 600;
+    margin-top: 5%;
+}
