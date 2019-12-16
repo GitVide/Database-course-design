@@ -72,4 +72,12 @@ public class UserService {
         return  users;
     }
 
+    public User getUserById(Long id){
+        return userMapper.getUserById(id);
+
+    }
+
+    public int updateUserInfo(String name,String password,String bio,Long id){
+        return  userMapper.updateUserInfo(name,password,bio,id);
+    }
 }

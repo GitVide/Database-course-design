@@ -384,4 +384,17 @@
     SELECT * FROM github_user ;
   </select>
 
+  <select id="getUserById" resultMap="BaseResultMap"  parameterType="java.lang.Long">
+    SELECT * FROM github_user where id = #{id};
+  </select>
+
+
+  <update id="updateUserInfo" >
+    update github_user
+    set
+    NAME = #{name,jdbcType=VARCHAR},
+    bio = #{bio,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>
