@@ -16,6 +16,7 @@
     <result column="view_count" jdbcType="INTEGER" property="viewCount" />
     <result column="like_count" jdbcType="INTEGER" property="likeCount" />
     <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="recommand" jdbcType="VARCHAR" property="recommand" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="scu.cj.community.model.Question">
     <!--
@@ -192,11 +193,11 @@
     insert into question (id, title, gmt_create, 
       gmt_modified, creator, comment_count, 
       view_count, like_count, tag, 
-      description)
+      description,recommand)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, 
       #{gmtModified,jdbcType=BIGINT}, #{creator,jdbcType=BIGINT}, #{commentCount,jdbcType=INTEGER}, 
       #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, 
-      #{description,jdbcType=LONGVARCHAR})
+      #{description,jdbcType=LONGVARCHAR}, #{recommand,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="scu.cj.community.model.Question">
     <!--
@@ -478,4 +479,25 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <select id="getAllQuestion" resultMap="BaseResultMap" >
+    SELECT * FROM question ;
+  </select>
+
+  <delete id="deleteById" parameterType="java.lang.Long">
+    delete  from question where    id=${id};
+  </delete>
+
+  <update id="updateRecommandById" >
+    update question
+     set
+      recommand = #{recommand,jdbcType=VARCHAR}
+    where id = #{id}
+  </update>
+
+  <select id="getRecommand" resultMap="BaseResultMap" >
+    SELECT * FROM question where recommand='1';
+  </select>
+
+
 </mapper>
