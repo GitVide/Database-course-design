@@ -11,6 +11,7 @@ import scu.cj.community.mapper.QuestionMapper;
 import scu.cj.community.mapper.UserMapper;
 import scu.cj.community.model.Question;
 import scu.cj.community.model.QuestionExample;
+import scu.cj.community.model.QuestionRepresent;
 import scu.cj.community.model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
@@ -18,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +37,8 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
+    SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
     public PaginationDTO list(String search, String tag, String sort, Integer page, Integer size) {
 
         if (StringUtils.isNotBlank(search)) {
@@ -46,6 +50,7 @@ public class QuestionService {
                     .filter(StringUtils::isNotBlank)
                     .collect(Collectors.joining("|"));
         }
+//        System.out.println(search);
 
         PaginationDTO paginationDTO = new PaginationDTO();
 
@@ -165,6 +170,7 @@ public class QuestionService {
 
     public void createOrUpdate(Question question) {
         if (question.getId() == null) {
+            question.setRecommand("0");
             // 创建
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
@@ -229,4 +235,43 @@ public class QuestionService {
         }).collect(Collectors.toList());
         return questionDTOS;
     }
+
+
+    public  List<QuestionRepresent> getAllQuestion(){
+        List<Question> questions = questionMapper.getAllQuestion();
+        List<QuestionRepresent> newQuestions = new ArrayList<>();
+        for (Question question: questions){
+            QuestionRepresent r = new QuestionRepresent();
+            r.setId(question.getId());
+            r.setTitle(question.getTitle());
+            String [] tags= question.getTag().split(",");
+            List<String> temp = new ArrayList<>();
+            for (String tag : tags){
+                temp.add(tag);
+            }
+            r.setTag(temp);
+            r.setGmtCreate(dateformat.format(question.getGmtCreate()));
+            r.setGmtModified(dateformat.format(question.getGmtModified()));
+            r.setCommentCount(question.getCommentCount());
+            r.setCreator(question.getCreator());
+            r.setLikeCount(question.getLikeCount());
+            r.setViewCount(question.getViewCount());
+            r.setRecommand(question.getRecommand());
+            newQuestions.add(r);
+        }
+
+        return  newQuestions;
+    }
+
+    public int deleteById(Long id){
+        return         questionMapper.deleteById(id);
+    }
+    public int updateRecommandById(Long id,String recommand){
+        return         questionMapper.updateRecommandById(id,recommand);
+    }
+
+    public List<Question> getRecommand(){
+        return         questionMapper.getRecommand();
+    }
+
 }

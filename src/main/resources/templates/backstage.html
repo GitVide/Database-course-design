@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${sectionName}"></title>
+    <head th:insert="~{import :: head}"></head>
+<!--    <link rel="stylesheet" href="/css/ace.min.css">-->
+    <style>
+        td,th {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div>
+<div class="container-fluid main profile">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <h2><span th:text="${sectionName}"></span></h2>
+            <hr>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'manageUser'}">
+<!--                    管理用户-->
+                <table class="table table-hover table-bordered table-striped">
+                    <thead>
+                    <tr>
+                          <th>用户id</th>
+                         <th>学号ID/账户ID</th>
+                          <th>用户名</th>
+                          <th>用户密码</th>
+                            <th>用户类型</th>
+                        <th>用户级别</th>
+                            <th >操作</th>
+                        </tr>
+                  </thead>
+                      <tbody>
+                       <tr th:each="user:${users}">
+                          <td th:text="${user.id}"></td>
+                        <td th:if="${user.accountId!=null}" th:text="${user.accountId}"></td>
+                          <td  th:if="${user.studentId!=null}" th:text="${user.studentId}"></td>
+                          <td th:text="${user.name}"></td>
+                          <td th:text="${user.password}"></td>
+                          <td th:if="${user.accountId!=null}" >
+                              <span class="label label-info">GitHub账户</span>
+                              </td>
+                          <td  th:if="${user.studentId!=null}" >
+                    <span class="label label-danger">学生账户</span>
+                    </td>
+                          <td th:if="${user.isSuper=='1'}" >
+                              <span class="label label-warning">超级管理员</span>
+                              </td>
+                    <td th:if="${user.isSuper!='1'}" >
+                        <span class="label label-success">普通用户</span>
+                    </td>
+                            <td> <button class="btn btn-info">修改</button>
+                            </td>
+                       </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:if="${section == 'manageQuestion'}">
+            <!--               管理话题-->
+                <table class="table table-hover table-bordered table-striped">
+                    <thead>
+                        <tr>
+                          <th>话题ID</th>
+                          <th>话题题目</th>
+                          <th>话题创建时间</th>
+                          <th>评论数</th>
+                          <th>浏览数</th>
+                          <th>点赞数</th>
+                          <th>创建者</th>
+                          <th>话题标签</th>
+                           <th >操作</th>
+                            </tr>
+                      </thead>
+                      <tbody>
+                       <tr th:each="question:${questions}">
+                          <td th:text="${question.id}"></td>
+                          <td  th:text="${question.title}"></td>
+                          <td th:text="${question.gmtCreate}"></td>
+                          <td th:text="${question.commentCount}"></td>
+                          <td th:text="${question.viewCount}"></td>
+                          <td th:text="${question.likeCount}"></td>
+                          <td th:text="${question.creator}" ></td>
+                          <td  width="50px" style="max-width: 100px;white-space: normal;text-overflow:ellipsis; overflow:hidden; color: #fff;">
+                            <span class="label label-success" th:each="t:${ question.tag}" th:text="${t}">
+                            </span>
+                        </td>
+                            <td>
+                                <a class="btn btn-success" th:href="@{/question/}+${question.id}">查看</a>
+                                <button class="btn btn-info updatebtn" th:if="${question.recommand=='0'}" th:attr="update_uri='/backstage/manageQuestion/'+${question.id}+'/0'">置顶</button>
+                                <button class="btn btn-info updatebtn" th:if="${question.recommand!='0'}" th:attr="update_uri='/backstage/manageQuestion/'+${question.id}+'/1'">取消置顶</button>
+                                <button th:attr="del_uri='/backstage/manageQuestion/'+${question.id}" class="btn btn-danger deletbtn">删除</button>
+                            </td>
+                       </tr>
+                  </tbody>
+                </table>
+                <form id="del" method="post">
+                    <input   name="_method"   hidden="hidden" value="delete">
+                </form>
+                <form id="up" method="post">
+                    <input   name="_method"   hidden="hidden" value="post">
+                </form>
+
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group section">
+                <a href="/backstage/manageUser"
+                   th:class="${section == 'manageUser'}? 'active list-group-item' : 'list-group-item'">用户管理</a>
+                <a href="/backstage/manageQuestion"
+                   th:class="${section == 'manageQuestion'}? 'active list-group-item' : 'list-group-item'">
+                   话题管理
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{footer :: foot}"></div>
+<script>
+    $(".deletbtn").click(function () {
+        $("#del").attr("action",$(this).attr("del_uri")).submit();
+
+        return false;
+    });
+    $(".updatebtn").click(function () {
+        $("#up").attr("action",$(this).attr("update_uri")).submit();
+
+        return false;
+    })
+</script>
+</body>
+</html>

@@ -1,15 +1,49 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .jumbotron{
+        background: url('/images/background.jpg');
+        margin-left: 0;
+        margin-right: 0 ;
+        background-size: contain;
+        height: 230px;
 
+    }
+</style>
 <body>
 
 <div th:fragment="notice">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 side">
 <!--        <h4>SCU</h4>-->
 <!--        <img class="img-thumbnail question-wechat" src="/images/logo.png">-->
-        <div class="jumbotron">
-            <p>SCU校园论坛</p>
+        <div class="jumbotron" style=" background: url('/images/background.jpg');
+        margin-left: 0;
+        margin-right: 0 ;
+        background-size: contain;
+        height: 230px;
+        color: #fff; " >
+<!--            <p>SCU校园论坛</p>-->
+        </div>
+    </div>
+    <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h4>管理员置顶</h4>
+        <div class="media" th:each="recommand : ${recommands}">
+            <!--                    <div class="media-left">-->
+            <!--                        <a href="#">-->
+            <!--                            <img class="media-object img-rounded"-->
+            <!--                                 th:src="${recommand.avatarUrl}">-->
+            <!--                        </a>-->
+            <!--                    </div>-->
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <a th:href="@{'/question/'+ ${recommand.id}}" th:text="${recommand.title}"></a>
+                </h4>
+                <span class="text-desc"><span th:text="${recommand.commentCount}"></span> 个回复 • <span
+                        th:text="${recommand.viewCount}"></span> 次浏览 • <span
+                        th:text="${#dates.format(recommand.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
+            </div>
         </div>
     </div>
 </div>

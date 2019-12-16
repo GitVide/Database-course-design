@@ -134,4 +134,13 @@ public interface QuestionMapper {
      * @mbg.generated Fri Dec 13 20:10:37 CST 2019
      */
     int updateByPrimaryKey(Question record);
+
+    List<Question> getAllQuestion();
+
+    int deleteById(@Param("id") Long id);
+
+     int updateRecommandById(@Param("id") Long id,@Param("recommand") String recommand);
+
+    List<Question> getRecommand();
+
 }

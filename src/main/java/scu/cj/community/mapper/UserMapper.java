@@ -109,4 +109,8 @@ public interface UserMapper {
     boolean insertNewUser(User user);
 
     User findIfStudentIdExits(String studentId);
+
+    List<User> findAllUser();
+
+
 }

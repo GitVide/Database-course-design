@@ -1,0 +1,1 @@
+ALTER table question add recommand varchar(1)  NOT NULL ;

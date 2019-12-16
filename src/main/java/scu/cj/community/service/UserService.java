@@ -7,6 +7,7 @@ import scu.cj.community.model.User;
 import scu.cj.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scu.cj.community.utils.MD5Utils;
 
 import java.util.List;
 
@@ -61,6 +62,14 @@ public class UserService {
             return  false;
         }
 
+    }
+
+    public List<User> findAllUser(){
+        List<User> users = userMapper.findAllUser();
+        for(User user : users){
+                user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
+        }
+        return  users;
     }
 
 }
