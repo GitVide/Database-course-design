@@ -82,6 +82,17 @@
                 </nav>
             </div>
         </div>-->
+        <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+            <div class="media" th:each="user : ${userList}">
+                <div class="media-left" th:if="user != null">
+                    <a href="#">
+                        <img class="media-object img-rounded"
+                             th:src="${user.avatarUrl}">
+                    </a>
+                    <span class="glyphicon" th:text="${user.name}"></span>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 ">
             <div>
                 <a href="#">
@@ -96,20 +107,20 @@
                 </h3>
                 <div class="">
                     <button type="button" class="btn btn-default modify-profile">
-<!--                        <a th:href="@{'/publish/'+${question.id}}" class="community-menu"-->
+                        <!--                        <a th:href="@{'/publish/'+${question.id}}" class="community-menu"-->
                         <a href="/profile/modify">修改个人信息</a>
                     </button>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 list-group section">
-                <a href="/profile/questions"
-                   th:class="${section == 'questions'}? 'active list-group-item' : 'list-group-item'">我的问题</a>
-                <a href="/profile/replies"
-                   th:class="${section == 'replies'}? 'active list-group-item' : 'list-group-item'">
-                    最新回复
-                    <span class="badge" th:text="${session.unreadCount}"></span>
-                </a>
-            </div>
+            <!--            <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 list-group section">-->
+            <!--                <a href="/profile/questions"-->
+            <!--                   th:class="${section == 'questions'}? 'active list-group-item' : 'list-group-item'">我的问题</a>-->
+            <!--                <a href="/profile/replies"-->
+            <!--                   th:class="${section == 'replies'}? 'active list-group-item' : 'list-group-item'">-->
+            <!--                    最新回复-->
+            <!--                    <span class="badge" th:text="${session.unreadCount}"></span>-->
+            <!--                </a>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>

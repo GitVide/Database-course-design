@@ -54,8 +54,8 @@ public class SessionInterceptor implements HandlerInterceptor {
                     if (users.size() != 0) {
                         HttpSession session = request.getSession();
                         session.setAttribute("user", users.get(0));
-                        System.out.println(users.get(0));
-                        System.out.println(users.get(0).getIsSuper());
+//                        System.out.println(users.get(0));
+//                        System.out.println(users.get(0).getIsSuper());
                         Long unreadCount = notificationService.unreadCount(users.get(0).getId());
                         session.setAttribute("unreadCount", unreadCount);
                     }

@@ -18,7 +18,7 @@ public class UserSearchController {
     @GetMapping("/userSearch")
     public String userSearch(@RequestParam(name = "search", required = false) String search, Model model) {
         List<User> userList = userService.findUserBySearch(search);
-        model.addAttribute("userLisr",userList);
+        model.addAttribute("userList",userList);
         model.addAttribute("sectionName","搜索用户");
         return "user_search_list";
     }
