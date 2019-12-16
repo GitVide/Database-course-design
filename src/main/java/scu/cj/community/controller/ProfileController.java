@@ -62,6 +62,23 @@ public class ProfileController {
         return "profile";
     }
 
+    @GetMapping("/profile/findByUser/{id}")
+    public String profileFindByUser(
+                          @PathVariable(name = "id") Long id,
+                          Model model,
+                          @RequestParam(name = "page", defaultValue = "1") Integer page,
+                          @RequestParam(name = "size", defaultValue = "5") Integer size) {
+        if (id == null){
+            return "redirect:/";
+        }
+        model.addAttribute("section", "questions");
+        model.addAttribute("sectionName", "Ta的提问");
+        PaginationDTO paginationDTO = questionService.list(id, page, size);
+        model.addAttribute("pagination", paginationDTO);
+
+        return "profile";
+    }
+
     @PostMapping("/profile")
     public String modifyProfile(HttpServletRequest request
             , @RequestParam(name = "bio", required = false) String bio,

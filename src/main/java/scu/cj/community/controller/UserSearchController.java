@@ -17,7 +17,12 @@ public class UserSearchController {
 
     @GetMapping("/userSearch")
     public String userSearch(@RequestParam(name = "search", required = false) String search, Model model) {
+//        System.out.printf("---------------");
         List<User> userList = userService.findUserBySearch(search);
+//        for (User user:userList) {
+//            System.out.println("++++++++++++++");
+//            System.out.println(user);
+//        }
         model.addAttribute("userList",userList);
         model.addAttribute("sectionName","搜索用户");
         return "user_search_list";

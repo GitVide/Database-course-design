@@ -46,45 +46,45 @@ public class UserService {
         }
     }
 
-    public User validationUser(String studentId,String password){
+    public User validationUser(String studentId, String password) {
         User user = userMapper.validationUser(studentId, password);
 
-        return  user;
+        return user;
 
     }
 
-    public boolean insertNewUser(User user){
+    public boolean insertNewUser(User user) {
 
-        return  userMapper.insertNewUser(user);
+        return userMapper.insertNewUser(user);
     }
 
-    public boolean findIfStudentIdExits(String studentId){
+    public boolean findIfStudentIdExits(String studentId) {
         User user = userMapper.findIfStudentIdExits(studentId);
-        if (user==null){
+        if (user == null) {
             return true;
-        }
-        else{
-            return  false;
+        } else {
+            return false;
         }
 
     }
 
-    public List<User> findAllUser(){
+    public List<User> findAllUser() {
         List<User> users = userMapper.findAllUser();
-        for(User user : users){
+        for (User user : users) {
             user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
         }
-        return  users;
+        return users;
     }
 
-    public User getUserById(Long id){
+    public User getUserById(Long id) {
         return userMapper.getUserById(id);
 
     }
 
-    public int updateUserInfo(String name,String password,String bio,Long id){
-        return  userMapper.updateUserInfo(name,password,bio,id);
+    public int updateUserInfo(String name, String password, String bio, Long id) {
+        return userMapper.updateUserInfo(name, password, bio, id);
     }
+
     public void modifyUser(User user) {
         UserExample example = new UserExample();
         example.createCriteria()
