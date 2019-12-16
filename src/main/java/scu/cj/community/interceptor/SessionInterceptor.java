@@ -34,6 +34,7 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//        System.out.println("拦截器执行");
         //设置 context 级别的属性
         request.getServletContext().setAttribute("redirectUri", redirectUri);
         // 没有登录的时候也可以查看导航
@@ -43,6 +44,7 @@ public class SessionInterceptor implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length != 0)
             for (Cookie cookie : cookies) {
+//                System.out.println(cookie);
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
                     UserExample userExample = new UserExample();

@@ -15,6 +15,10 @@
     <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified" />
     <result column="bio" jdbcType="VARCHAR" property="bio" />
     <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+<!--    新增两行密码和超级管理员标志-->
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="isSuper" jdbcType="VARCHAR" property="isSuper" />
+    <result column="studentId" jdbcType="VARCHAR" property="studentId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -150,10 +154,11 @@
     -->
     insert into github_user (id, ACCOUNT_ID, NAME, 
       TOKEN, GMT_CREATE, GMT_MODIFIED, 
-      bio, avatar_url)
+      bio, avatar_url,password,isSuper)
     values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{token,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT}, 
-      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR})
+      #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
+      ,#{isSuper,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="scu.cj.community.model.User">
     <!--
@@ -348,5 +353,30 @@
     <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
+  </select>
+
+<!--  验证登录信息-->
+  <select id="validationUser" resultMap="BaseResultMap">
+        SELECT * FROM github_user where studentId = '${studentId}' and password = '${password}';
+  </select>
+
+  <insert id="insertNewUser" parameterType="scu.cj.community.model.User">
+
+    insert into github_user (id, ACCOUNT_ID, NAME,
+    TOKEN, GMT_CREATE, GMT_MODIFIED,
+    bio, avatar_url,password,isSuper,studentId)
+    values (#{id,jdbcType=BIGINT}, #{accountId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+    #{token,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=BIGINT}, #{gmtModified,jdbcType=BIGINT},
+    #{bio,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
+    ,#{isSuper,jdbcType=VARCHAR},#{studentId,jdbcType=VARCHAR})
+  </insert>
+
+
+  <select id="findIfStudentIdExits" resultMap="BaseResultMap" parameterType="string">
+        SELECT * FROM github_user where 1 = 1
+        <if test="_parameter!=null and _parameter !=''">
+        and   studentId = #{studentId};
+        </if>
+
   </select>
 </mapper>

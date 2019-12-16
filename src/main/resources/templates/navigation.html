@@ -2,17 +2,18 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
+
 <body>
 
 <div th:fragment="nav">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
+    <nav class="navbar navbar-default" >
+        <div class="container-fluid" style="background-color: #00c4ff;color: #fff!important;">
+            <div class="navbar-header" >
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">SCU校园论坛</span>
+                    <span class="sr-only" >SCU校园论坛</span>
                 </button>
-                <a class="navbar-brand" href="/">SCU校园论坛</a>
+                <a class="navbar-brand" href="/" style="color:#fff;">SCU校园论坛</a>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -39,9 +40,9 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li th:if="${session.user != null}">
-                        <a href="/publish">提问</a>
+                        <a href="/publish" style="color:#fff;">提问</a>
                     </li>
-                    <li><a href="/profile/replies">通知 <span class="badge" th:text="${session.unreadCount}"></span></a>
+                    <li><a href="/profile/replies" style="color:#fff;">通知 <span class="badge" th:text="${session.unreadCount}"></span></a>
                     </li>
                     <li class="dropdown" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -50,12 +51,13 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/profile/questions">我的问题</a></li>
-                            <li><a href="/logout">退出登录</a></li>
+                            <li><a href="/profile/questions" style="color:#fff;">我的问题</a></li>
+                            <li><a href="/logout" style="color:#fff;">退出登录</a></li>
                         </ul>
                     </li>
                     <li th:if="${session.user == null}">
-                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='83e7ee42167f84d10160',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">登录</a>
+<!--                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='83e7ee42167f84d10160',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">登录</a>-->
+                        <a th:href="@{/login}" style="color:#fff;">登录</a>
                     </li>
 
                 </ul>

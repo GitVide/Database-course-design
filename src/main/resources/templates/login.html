@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>SCU校园论坛:登录</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+    <head th:insert="~{import :: head}"></head>
+<!--	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">-->
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" href="css/main.css" th:href="@{/css/main.css}">
+</head>
+
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('/images/background.jpg');">
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<form class="login100-form validate-form" action="/login" method="post">
+					<span class="login100-form-title p-b-49">登录</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
+						<span class="label-input100">用户ID</span>
+						<input class="input100 fa-github" type="text" name="studentId" placeholder="请输入用户ID" autocomplete="off">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="请输入密码">
+						<span class="label-input100">密码</span>
+						<input class="input100" type="password" name="pass" placeholder="请输入密码">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+
+                    <div class="txt1 text-center p-t-54 p-b-20">
+                        <div class="alert  alert-danger" th:text="${error}"
+                             th:if="${error != null}" ></div>
+                    </div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn" type="submit">登 录</button>
+						</div>
+					</div>
+
+					<div class="txt1 text-center p-t-54 p-b-20">
+						<span>第三方登录</span>
+					</div>
+
+					<div class="flex-c-m">
+						<a  class="login100-social-item bg1"
+						   th:href="@{https://github.com/login/oauth/authorize(client_id='83e7ee42167f84d10160',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">
+							<i class="fa fa-github" ></i>
+						</a>
+
+					</div>
+
+					<div class="flex-col-c p-t-25">
+						<a href="/logup" class="txt2">立即注册</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<!--	<script src="/vendor/jquery/jquery-3.2.1.min.js"></script>-->
+	<script src="/js/jquery-3.4.1.min.js"></script>
+	<script src="/js/main.js"></script>
+</body>
+
+</html>

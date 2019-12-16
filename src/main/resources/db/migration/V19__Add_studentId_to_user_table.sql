@@ -1,0 +1,1 @@
+ALTER table github_user add  studentId varchar(13)   NULL  ;

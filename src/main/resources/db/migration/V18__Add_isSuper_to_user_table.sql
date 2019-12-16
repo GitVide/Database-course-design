@@ -1,0 +1,1 @@
+ALTER table github_user add isSuper varchar(1)  NOT NULL ;
