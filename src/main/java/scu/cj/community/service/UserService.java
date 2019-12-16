@@ -1,5 +1,7 @@
 package scu.cj.community.service;
 
+import scu.cj.community.exception.CustomizeErrorCode;
+import scu.cj.community.exception.CustomizeException;
 import scu.cj.community.mapper.UserMapper;
 import scu.cj.community.model.User;
 import scu.cj.community.model.UserExample;
@@ -37,4 +39,28 @@ public class UserService {
             userMapper.updateByExampleSelective(updateUser, example);
         }
     }
+
+    public User validationUser(String studentId,String password){
+        User user = userMapper.validationUser(studentId, password);
+
+        return  user;
+
+    }
+
+    public boolean insertNewUser(User user){
+
+           return  userMapper.insertNewUser(user);
+    }
+
+    public boolean findIfStudentIdExits(String studentId){
+        User user = userMapper.findIfStudentIdExits(studentId);
+        if (user==null){
+            return true;
+        }
+        else{
+            return  false;
+        }
+
+    }
+
 }

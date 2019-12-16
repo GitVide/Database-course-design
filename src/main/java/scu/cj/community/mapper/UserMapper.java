@@ -102,4 +102,11 @@ public interface UserMapper {
      * @mbg.generated Fri Dec 13 20:10:37 CST 2019
      */
     int updateByPrimaryKey(User record);
+
+
+    User validationUser(String studentId,String password);
+
+    boolean insertNewUser(User user);
+
+    User findIfStudentIdExits(String studentId);
 }

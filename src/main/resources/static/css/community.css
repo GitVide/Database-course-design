@@ -39,6 +39,9 @@ body {
     float: right;
     margin-bottom: 15px;
 }
+.media:hover {
+    background-color: #777 !important;
+}
 
 .media-object {
     width: 38px;
