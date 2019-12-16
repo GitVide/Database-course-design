@@ -7,6 +7,7 @@ import scu.cj.community.model.User;
 import scu.cj.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scu.cj.community.utils.MD5Utils;
 
 import java.util.List;
 
@@ -70,5 +71,5 @@ public class UserService {
         }
         return  users;
     }
-    
+
 }
