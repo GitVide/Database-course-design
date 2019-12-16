@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scu.cj.community.mapper.UserExtMapper">
+    <resultMap id="BaseResultMap" type="scu.cj.community.model.User">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="ACCOUNT_ID" jdbcType="VARCHAR" property="accountId"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="TOKEN" jdbcType="VARCHAR" property="token"/>
+        <result column="GMT_CREATE" jdbcType="BIGINT" property="gmtCreate"/>
+        <result column="GMT_MODIFIED" jdbcType="BIGINT" property="gmtModified"/>
+        <result column="bio" jdbcType="VARCHAR" property="bio"/>
+        <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl"/>
+        <!--    新增两行密码和超级管理员标志-->
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="isSuper" jdbcType="VARCHAR" property="isSuper"/>
+        <result column="studentId" jdbcType="VARCHAR" property="studentId"/>
+    </resultMap>
+    <select id="selectBySearch" parameterType="scu.cj.community.dto.UserDTO"
+            resultMap="BaseResultMap">
+        select * from github_user
+        <where>
+            <if test="search != null and search != ''">
+                and name like '%${search}'
+            </if>
+        </where>
+        order by gmt_create desc
+    </select>
+</mapper>

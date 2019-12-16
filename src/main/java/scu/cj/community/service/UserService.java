@@ -1,20 +1,23 @@
 package scu.cj.community.service;
 
-import scu.cj.community.exception.CustomizeErrorCode;
-import scu.cj.community.exception.CustomizeException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import scu.cj.community.dto.UserDTO;
+import scu.cj.community.mapper.UserExtMapper;
 import scu.cj.community.mapper.UserMapper;
 import scu.cj.community.model.User;
 import scu.cj.community.model.UserExample;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import scu.cj.community.utils.MD5Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserExtMapper userExtMapper;
 
     public void createOrUpdate(User user) {
         UserExample userExample = new UserExample();
@@ -63,7 +66,6 @@ public class UserService {
         }
 
     }
-
     public List<User> findAllUser(){
         List<User> users = userMapper.findAllUser();
         for(User user : users){
@@ -71,5 +73,18 @@ public class UserService {
         }
         return  users;
     }
+    public void modifyUser(User user) {
+        UserExample example = new UserExample();
+        example.createCriteria()
+                .andIdEqualTo(user.getId());
+        userMapper.updateByExampleSelective(user, example);
+    }
 
+    public List<User> findUserBySearch(String search) {
+        List<User> userList = new ArrayList<>();
+        UserDTO userDto = new UserDTO();
+        userDto.setSearch(search);
+        userList = userExtMapper.selectBySearch(userDto);
+        return userList;
+    }
 }
