@@ -70,11 +70,4 @@ public class UserService {
         }
         return  users;
     }
-
-    public void modifyUser(User user) {
-        UserExample example = new UserExample();
-        example.createCriteria()
-                .andIdEqualTo(user.getId());
-        userMapper.updateByExampleSelective(user, example);
-    }
 }
