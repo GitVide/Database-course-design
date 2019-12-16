@@ -6,12 +6,12 @@
 <body>
 
 <div th:fragment="nav">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" >
         <div class="container-fluid" style="background-color: #00c4ff;color: #fff!important;">
-            <div class="navbar-header">
+            <div class="navbar-header" >
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">SCU校园论坛</span>
+                    <span class="sr-only" >SCU校园论坛</span>
                 </button>
                 <a class="navbar-brand" href="/" style="color:#fff;">SCU校园论坛</a>
             </div>
@@ -19,19 +19,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form class="navbar-form navbar-left" action="/" method="get">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="search" placeholder="搜索话题">
+                        <input type="text" class="form-control" name="search" placeholder="搜索问题">
                     </div>
-                    <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-default">搜索话题</button>
-                    </div>
-                </form>
-                <form class="navbar-form navbar-left" action="/" method="get">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="search" placeholder="搜索用户">
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="submit" class="btn btn-default">搜索用户</button>
-                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
                 </form>
                 <ul class="nav navbar-nav">
                     <script>
@@ -49,24 +39,27 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li th:if="${session.user != null } and ${session.user.getIsSuper() eq '1'}">
+                        <a href="/backstage/manageUser" style="color:#fff;">后台管理</a>
+                    </li>
                     <li th:if="${session.user != null}">
                         <a href="/publish" style="color:#fff;">提问</a>
                     </li>
-                    <li><a href="/profile/replies" style="color:#fff;">通知 <span class="badge"
-                                                                                th:text="${session.unreadCount}"></span></a>
+                    <li th:if="${session.user != null}"><a href="/profile/replies" style="color:#fff;">通知 <span class="badge" th:text="${session.unreadCount}"></span></a>
                     </li>
                     <li class="dropdown" th:if="${session.user != null}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">
+                           aria-expanded="false" style="color: #fff">
                             <span th:text="${session.user.getName()}"></span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="/profile/questions">我的问题</a></li>
-                            <li><a href="/logout">退出登录</a></li>
+                            <li><a href="/logout" >退出登录</a></li>
                         </ul>
                     </li>
                     <li th:if="${session.user == null}">
+<!--                        <a th:href="@{https://github.com/login/oauth/authorize(client_id='83e7ee42167f84d10160',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">登录</a>-->
                         <a th:href="@{/login}" style="color:#fff;">登录</a>
                     </li>
 
