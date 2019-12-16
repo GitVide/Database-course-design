@@ -63,6 +63,14 @@ public class UserService {
 
     }
 
+    public List<User> findAllUser(){
+        List<User> users = userMapper.findAllUser();
+        for(User user : users){
+            user.setPassword(MD5Utils.stringToMD5(user.getPassword()));
+        }
+        return  users;
+    }
+
     public void modifyUser(User user) {
         UserExample example = new UserExample();
         example.createCriteria()
